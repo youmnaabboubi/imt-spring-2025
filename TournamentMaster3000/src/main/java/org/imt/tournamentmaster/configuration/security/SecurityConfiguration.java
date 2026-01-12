@@ -14,7 +14,6 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class SecurityConfiguration {
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) {
         http.authorizeHttpRequests(authorize ->
@@ -24,7 +23,11 @@ public class SecurityConfiguration {
                 .requestMatchers("/actuator/health/**").permitAll()
                 .requestMatchers("/actuator/**").hasRole("ADMIN")
                 .anyRequest().permitAll())
-        .httpBasic(Customizer.withDefaults());
+                .formLogin(
+                        form -> form // setup form-based authentication
+                        .loginPage("/login") // URL to use when login is needed
+                        .permitAll() // any user can access
+                        );
 
         return http.build();
     }
