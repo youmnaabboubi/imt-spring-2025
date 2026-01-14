@@ -27,9 +27,23 @@ public class MatchController {
         return match.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
-
     @GetMapping
     public List<Match> getAll() {
         return matchService.getAll();
+    }
+
+    @PostMapping
+    public Match create(@RequestBody Match match) {
+        return matchService.create(match);
+    }
+
+    @PutMapping("/{id}/status/{newStatus}")
+    public Match updateStatus(@PathVariable long id, @PathVariable Match.Status newStatus) {
+        return matchService.updateStatus(id, newStatus);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable long id) {
+        matchService.deleteById(id);
     }
 }
