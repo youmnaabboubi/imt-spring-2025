@@ -3,7 +3,6 @@ package org.imt.tournamentmaster.configuration.security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,10 +15,12 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) {
-        http.authorizeHttpRequests(authorize ->
+        http
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(authorize ->
             authorize
                     .requestMatchers("/api/match/**").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/**").hasAnyRole("USER", "ADMIN")
+                    .requestMatchers(HttpMethod.GET, "/api/**").hasAnyRole("USER", "ADMIN")
                 .requestMatchers("/api/**").hasRole("ADMIN")
                 .requestMatchers("/actuator/health/**").permitAll()
                 .requestMatchers("/actuator/**").hasRole("ADMIN")
