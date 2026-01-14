@@ -28,6 +28,24 @@ public class MatchService {
     @Transactional(readOnly = true)
     public List<Match> getAll() {
         return StreamSupport.stream(matchRepository.findAll().spliterator(), false)
-                .toList();
+                .toList();}
+
+    @Transactional(readOnly = false)
+    public Match create(Match match) {
+        return matchRepository.save(match);
+    }
+
+    @Transactional
+    public Match updateStatus(long id, Match.Status status) {
+        Match match = matchRepository.findById(id).get(); // Simple fetch
+        match.setStatus(status);
+        return matchRepository.save(match);
+    }
+
+    @Transactional
+    public void deleteById(long id) {
+        matchRepository.deleteById(id);
     }
 }
+
+
