@@ -37,7 +37,7 @@ public class MatchService {
 
     @Transactional
     public Match updateStatus(long id, Match.Status status) {
-        Match match = matchRepository.findById(id).get(); // Simple fetch
+        Match match = matchRepository.findById(id).get();
         match.setStatus(status);
         return matchRepository.save(match);
     }
