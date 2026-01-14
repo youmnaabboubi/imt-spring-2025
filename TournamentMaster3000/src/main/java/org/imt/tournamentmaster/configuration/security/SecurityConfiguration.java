@@ -18,6 +18,7 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) {
         http.authorizeHttpRequests(authorize ->
             authorize
+                    .requestMatchers("/api/match/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/**").hasAnyRole("USER", "ADMIN")
                 .requestMatchers("/api/**").hasRole("ADMIN")
                 .requestMatchers("/actuator/health/**").permitAll()

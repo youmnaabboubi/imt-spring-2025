@@ -37,8 +37,9 @@ public class MatchController {
         return matchService.create(match);
     }
 
-    @PutMapping("/{id}/status/{newStatus}")
-    public Match updateStatus(@PathVariable long id, @PathVariable Match.Status newStatus) {
+    @PutMapping("/{id}/status/{text}")
+    public Match updateStatus(@PathVariable long id, @PathVariable String text) {
+        Match.Status newStatus = Match.Status.valueOf(text.toUpperCase());
         return matchService.updateStatus(id, newStatus);
     }
 
