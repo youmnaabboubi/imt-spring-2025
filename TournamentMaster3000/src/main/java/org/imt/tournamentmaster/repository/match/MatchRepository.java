@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MatchRepository extends CrudRepository<Match, Long> {
-
+Optional<Match> findFirstByOrderByDateMatchDesc();
 }

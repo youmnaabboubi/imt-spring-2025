@@ -6,6 +6,7 @@ import org.imt.tournamentmaster.model.equipe.Equipe;
 
 import java.util.List;
 import java.util.Objects;
+import java.time.LocalDateTime;
 
 // Quand cette classe est transformée en entité, il faut spécifier le nom de la table en `match` en incluant les backquotes ` car match est un mot-clé réservé en SQL
 @Entity
@@ -31,6 +32,8 @@ public class Match {
     private List<Round> rounds; // Set est un type de collection, on va éviter les confusions et appeler ça un "round"
 
     private Status status;
+
+    private LocalDateTime dateMatch;
 
     public Match() {
     }
@@ -63,6 +66,10 @@ public class Match {
         return status;
     }
 
+    public LocalDateTime getDateMatch() {
+        return dateMatch;
+    }
+
     public void setId(long id) {
         this.id = id;
     }
@@ -81,6 +88,10 @@ public class Match {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public void setDateMatch(LocalDateTime dateMatch) {
+        this.dateMatch = dateMatch;
     }
 
     public Equipe determineWinner() {
