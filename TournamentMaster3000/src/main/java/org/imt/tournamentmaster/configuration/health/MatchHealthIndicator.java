@@ -1,31 +1,28 @@
-package org.imt.tournamentmaster.configuration.health;
+package org.imt.tournamentmaster.config;
 
-import org.imt.tournamentmaster.model.match.Match;
-import org.imt.tournamentmaster.service.match.MatchService;
-import org.jspecify.annotations.Nullable;
-import org.springframework.boot.health.contributor.Health;
-import org.springframework.boot.health.contributor.HealthIndicator;
+import org.imt.tournamentmaster.repository.match.MatchRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.HealthIndicator;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Component
 public class MatchHealthIndicator implements HealthIndicator {
 
-    private MatchService matchService;
-
-    public MatchHealthIndicator(MatchService matchService) {
-        this.matchService = matchService;
-    }
+    @Autowired
+    private MatchRepository matchRepository;
 
     @Override
-    public @Nullable Health health() {
-        List<Match> matches = matchService.getAll();
-
-        if (matches == null || matches.isEmpty()) {
-            return Health.down().withDetail("error", "No matches found").build();
-        } else {
-            return Health.up().withDetail("matchCount", matches.size()).build();
-        }
+    public Health health() {
+        return matchRepository.findFirstByOrderByDateMatchDesc()
+            .map(lastMatch -> {
+                if (lastMatch.getDateMatch().isBefore(LocalDateTime.now().minusDays(30))) {
+                    return Health.down().withDetail("reason", "Aucun match récent").build();
+                }
+                return Health.up().build();
+            })
+            .orElse(Health.down().withDetail("reason", "Base de données vide").build());
     }
 }
