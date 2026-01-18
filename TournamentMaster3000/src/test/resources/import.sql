@@ -155,7 +155,7 @@ INSERT INTO round (id, scorea, scoreb, round_number) VALUES (9, 0, 1, 1);
 INSERT INTO round (id, scorea, scoreb, round_number) VALUES (10, 3, 2, 1);
 -- Cameroun 0 - 2 Maroc
 INSERT INTO round (id, scorea, scoreb, round_number) VALUES (11, 0, 2, 1);
--- Nigéria 2 - 0 Algérie (Ton match phare !)
+-- Nigéria 2 - 0 Algérie
 INSERT INTO round (id, scorea, scoreb, round_number) VALUES (12, 2, 0, 1);
 
 -- Les matchs qui ont été joué en huitième et quart de finale

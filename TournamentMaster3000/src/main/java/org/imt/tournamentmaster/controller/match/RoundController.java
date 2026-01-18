@@ -4,10 +4,7 @@ import org.imt.tournamentmaster.model.match.Round;
 import org.imt.tournamentmaster.service.match.RoundService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -40,4 +37,25 @@ public class RoundController {
     public List<Round> getMaxScore(@PathVariable int scoreA) {
        return roundService.getByScoreAGreaterThanEqual(scoreA);
     }
+
+    @PostMapping
+    public Round create(@RequestBody Round round) {
+        return roundService.save(round);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Round> update(@PathVariable long id, @RequestBody Round roundDetails) {
+        try {
+            Round updatedRound = roundService.update(id, roundDetails);
+            return ResponseEntity.ok(updatedRound);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteRound(@PathVariable Long id) {
+        roundService.deleteById(id);
+    }
+
 }
