@@ -1,6 +1,7 @@
 package org.imt.tournamentmaster.service.match;
 
 import org.imt.tournamentmaster.model.match.Round;
+import org.imt.tournamentmaster.repository.match.MatchRepository;
 import org.imt.tournamentmaster.repository.match.RoundRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,4 +35,24 @@ public class RoundService {
     public List<Round> getByScoreAGreaterThanEqual(int scoreA) {
         return roundRepository.findByScoreAGreaterThanEqual(scoreA);
     }
+
+    public Round save(Round round) {
+        return roundRepository.save(round);
+    }
+
+    @Transactional
+    public Round update(long id, Round roundDetails) {
+        Round round = roundRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Round non trouvé avec l'id : " + id));
+        round.setScoreA(roundDetails.getScoreA());
+        round.setScoreB(roundDetails.getScoreB());
+        round.setRoundNumber(roundDetails.getRoundNumber());
+        return roundRepository.save(round);
+    }
+
+    public void deleteById(Long id) {
+        roundRepository.deleteById(id);
+    }
 }
+
+

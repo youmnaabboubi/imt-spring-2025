@@ -9,7 +9,6 @@ import java.util.Objects;
 @Entity
 public class Equipe {
 
-    @JsonIgnore
     @Id
     private long id;
 

@@ -23,7 +23,6 @@ public class MatchController {
     @GetMapping("/{id}")
     public ResponseEntity<Match> getById(@PathVariable long id) {
         Optional<Match> match = matchService.getById(id);
-
         return match.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
@@ -37,14 +36,22 @@ public class MatchController {
         return matchService.create(match);
     }
 
-    @PutMapping("/{id}/status/{text}")
-    public Match updateStatus(@PathVariable long id, @PathVariable String text) {
-        Match.Status newStatus = Match.Status.valueOf(text.toUpperCase());
-        return matchService.updateStatus(id, newStatus);
+    @PutMapping("/{id}")
+    public ResponseEntity<Match> update(@PathVariable long id, @RequestBody Match matchDetails) {
+        try {
+            return ResponseEntity.ok(matchService.update(id, matchDetails));
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable long id) {
-        matchService.deleteById(id);
+    public ResponseEntity<Void> delete(@PathVariable long id) {
+        try {
+            matchService.deleteById(id);
+            return ResponseEntity.noContent().build();
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

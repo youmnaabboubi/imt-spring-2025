@@ -36,14 +36,24 @@ public class MatchService {
     }
 
     @Transactional
-    public Match updateStatus(long id, Match.Status status) {
-        Match match = matchRepository.findById(id).get();
-        match.setStatus(status);
-        return matchRepository.save(match);
+    public Match update(long id, Match matchDetails) {
+        return matchRepository.findById(id).map(match -> {
+            match.setEquipeA(matchDetails.getEquipeA());
+            match.setEquipeB(matchDetails.getEquipeB());
+            match.setStatus(matchDetails.getStatus());
+            if (matchDetails.getRounds() != null) {
+                match.setRounds(matchDetails.getRounds());
+            }
+            return matchRepository.save(match);
+        }).orElseThrow(() -> new RuntimeException("Match not found :" + id));
     }
+
 
     @Transactional
     public void deleteById(long id) {
+        if (!matchRepository.existsById(id)) {
+            throw new RuntimeException("Impossible : the match " + id + " doesn't exist");
+        }
         matchRepository.deleteById(id);
     }
 }
