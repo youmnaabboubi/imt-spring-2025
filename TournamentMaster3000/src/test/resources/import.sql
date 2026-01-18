@@ -162,31 +162,31 @@ INSERT INTO round (id, scorea, scoreb, round_number) VALUES (12, 2, 0, 1);
 
 -- --- HUITIÈMES DE FINALE ---
 -- Mali vs Tunisie
-INSERT INTO `match` (id, equipea_id, equipeb_id, status) VALUES (1, 13, 22, 2);
+INSERT INTO `match` (id, equipea_id, equipeb_id, status, date_match) VALUES (1, 13, 22, 2, "2026-01-03");
 -- Sénégal vs Soudan
-INSERT INTO `match` (id, equipea_id, equipeb_id, status) VALUES (2, 19, 20, 2);
+INSERT INTO `match` (id, equipea_id, equipeb_id, status, date_match) VALUES (2, 19, 20, 2, "2026-01-03");
 -- Égypte vs Bénin
-INSERT INTO `match` (id, equipea_id, equipeb_id, status) VALUES (3, 9, 4, 2);
+INSERT INTO `match` (id, equipea_id, equipeb_id, status, date_match) VALUES (3, 9, 4, 2, "2026-01-05");
 -- Côte d'Ivoire vs Burkina Faso
-INSERT INTO `match` (id, equipea_id, equipeb_id, status) VALUES (4, 8, 5, 2);
+INSERT INTO `match` (id, equipea_id, equipeb_id, status, date_match) VALUES (4, 8, 5, 2, "2026-01-06");
 -- Afrique du Sud vs Cameroun
-INSERT INTO `match` (id, equipea_id, equipeb_id, status) VALUES (5, 1, 6, 2);
+INSERT INTO `match` (id, equipea_id, equipeb_id, status, date_match) VALUES (5, 1, 6, 2, "2026-01-04");
 -- Maroc vs Tanzanie
-INSERT INTO `match` (id, equipea_id, equipeb_id, status) VALUES (6, 14, 21, 2);
+INSERT INTO `match` (id, equipea_id, equipeb_id, status, date_match) VALUES (6, 14, 21, 2, "2026-01-04");
 -- Nigéria vs Mozambique
-INSERT INTO `match` (id, equipea_id, equipeb_id, status) VALUES (7, 16, 15, 2);
+INSERT INTO `match` (id, equipea_id, equipeb_id, status, date_match) VALUES (7, 16, 15, 2, "2026-01-05");
 -- Algérie vs RD Congo
-INSERT INTO `match` (id, equipea_id, equipeb_id, status) VALUES (8, 2, 18, 2);
+INSERT INTO `match` (id, equipea_id, equipeb_id, status, date_match) VALUES (8, 2, 18, 2, "2026-01-06");
 
 -- --- QUARTS DE FINALE ---
 -- Mali vs Sénégal
-INSERT INTO `match` (id, equipea_id, equipeb_id, status) VALUES (9, 13, 19, 2);
+INSERT INTO `match` (id, equipea_id, equipeb_id, status, date_match) VALUES (9, 13, 19, 2, "2026-01-09");
 -- Égypte vs Côte d'Ivoire
-INSERT INTO `match` (id, equipea_id, equipeb_id, status) VALUES (10, 9, 8, 2);
+INSERT INTO `match` (id, equipea_id, equipeb_id, status, date_match) VALUES (10, 9, 8, 2, "2026-01-10");
 -- Cameroun vs Maroc
-INSERT INTO `match` (id, equipea_id, equipeb_id, status) VALUES (11, 6, 14, 2);
+INSERT INTO `match` (id, equipea_id, equipeb_id, status, date_match) VALUES (11, 6, 14, 2, "2026-01-09");
 -- Nigéria vs Algérie
-INSERT INTO `match` (id, equipea_id, equipeb_id, status) VALUES (12, 16, 2, 2);
+INSERT INTO `match` (id, equipea_id, equipeb_id, status, date_match) VALUES (12, 16, 2, 2, "2026-01-10");
 
 INSERT INTO match_round (match_id, round_id) VALUES (1, 1);
 INSERT INTO match_round (match_id, round_id) VALUES (2, 2);
