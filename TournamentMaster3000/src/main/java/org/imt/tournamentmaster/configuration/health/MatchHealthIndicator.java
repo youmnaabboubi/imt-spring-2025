@@ -1,10 +1,10 @@
-package org.imt.tournamentmaster.config;
+package org.imt.tournamentmaster.configuration.health;
 
 import org.imt.tournamentmaster.repository.match.MatchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.health.contributor.Health;
+import org.springframework.boot.health.contributor.HealthIndicator;
 import org.springframework.stereotype.Component;
-import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.HealthIndicator;
 
 import java.time.LocalDateTime;
 

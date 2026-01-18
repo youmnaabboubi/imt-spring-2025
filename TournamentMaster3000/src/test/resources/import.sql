@@ -23,7 +23,7 @@ INSERT INTO round (id, scorea, scoreb, round_number) VALUES (5, 1, 2, 5);
 INSERT INTO round (id, scorea, scoreb, round_number) VALUES (6, 2, 1, 6);
 
 INSERT INTO `match` (id, equipea_id, equipeb_id, status) VALUES (1, 1, 2, 2);
-INSERT INTO `match` (id, equipea_id, equipeb_id, status) VALUES (2, 1, 2, 2);
+INSERT INTO `match` (id, equipea_id, equipeb_id, status, date_match) VALUES (2, 1, 2, 2, "2026-01-17");
 
 INSERT INTO match_round (match_id, round_id) VALUES (1, 1);
 INSERT INTO match_round (match_id, round_id) VALUES (1, 2);
