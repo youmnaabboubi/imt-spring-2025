@@ -16,18 +16,20 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) {
-        http.authorizeHttpRequests(authorize ->
-            authorize
-                .requestMatchers(HttpMethod.GET, "/api/**").hasAnyRole("USER", "ADMIN")
-                .requestMatchers("/api/**").hasRole("ADMIN")
-                .requestMatchers("/actuator/health/**").permitAll()
-                .requestMatchers("/actuator/**").hasRole("ADMIN")
-                .anyRequest().permitAll())
-                .formLogin(
-                        form -> form // setup form-based authentication
-                        .loginPage("/login") // URL to use when login is needed
-                        .permitAll() // any user can access
-                        );
+        http
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/api/**"))
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers(HttpMethod.GET, "/api/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/api/**").hasRole("ADMIN")
+                        .requestMatchers("/actuator/health/**").permitAll()
+                        .requestMatchers("/actuator/**").hasRole("ADMIN")
+                        .anyRequest().permitAll()
+                )
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .permitAll()
+                )
+                .httpBasic(Customizer.withDefaults());
 
         return http.build();
     }

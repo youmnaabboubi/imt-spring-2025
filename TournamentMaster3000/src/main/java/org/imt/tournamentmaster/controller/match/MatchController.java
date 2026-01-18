@@ -23,13 +23,35 @@ public class MatchController {
     @GetMapping("/{id}")
     public ResponseEntity<Match> getById(@PathVariable long id) {
         Optional<Match> match = matchService.getById(id);
-
         return match.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
-
     @GetMapping
     public List<Match> getAll() {
         return matchService.getAll();
+    }
+
+    @PostMapping
+    public Match create(@RequestBody Match match) {
+        return matchService.create(match);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Match> update(@PathVariable long id, @RequestBody Match matchDetails) {
+        try {
+            return ResponseEntity.ok(matchService.update(id, matchDetails));
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable long id) {
+        try {
+            matchService.deleteById(id);
+            return ResponseEntity.noContent().build();
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

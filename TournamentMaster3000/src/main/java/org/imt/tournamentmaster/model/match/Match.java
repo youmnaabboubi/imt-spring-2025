@@ -1,6 +1,5 @@
 package org.imt.tournamentmaster.model.match;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.imt.tournamentmaster.model.equipe.Equipe;
 
@@ -13,7 +12,6 @@ import java.time.LocalDateTime;
 @Table(name = "`match`")
 public class Match {
 
-    @JsonIgnore
     @Id
     private long id;
 
@@ -23,13 +21,13 @@ public class Match {
     @ManyToOne
     private Equipe equipeB;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "match_round",
             joinColumns = @JoinColumn(name = "match_id"),
             inverseJoinColumns = @JoinColumn(name = "round_id")
     )
-    private List<Round> rounds; // Set est un type de collection, on va éviter les confusions et appeler ça un "round"
+    private List<Round> rounds;
 
     private Status status;
 
