@@ -1,11 +1,14 @@
 package org.imt.tournamentmaster.service.match;
 
 import org.imt.tournamentmaster.model.match.Match;
+import org.imt.tournamentmaster.model.match.Round;
 import org.imt.tournamentmaster.repository.match.MatchRepository;
+import org.imt.tournamentmaster.repository.match.RoundRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
@@ -14,10 +17,12 @@ import java.util.stream.StreamSupport;
 public class MatchService {
 
     private final MatchRepository matchRepository;
+    private final RoundRepository roundRepository;
 
     @Autowired
-    public MatchService(MatchRepository matchRepository) {
+    public MatchService(MatchRepository matchRepository, RoundRepository roundRepository) {
         this.matchRepository = matchRepository;
+        this.roundRepository = roundRepository;
     }
 
     @Transactional(readOnly = true)
@@ -42,12 +47,19 @@ public class MatchService {
             match.setEquipeB(matchDetails.getEquipeB());
             match.setStatus(matchDetails.getStatus());
             if (matchDetails.getRounds() != null) {
-                match.setRounds(matchDetails.getRounds());
+                List<Long> rounds_id = matchDetails.getRounds().stream().map(Round::getId).toList();
+                List<Round> rounds = new ArrayList<>();
+                for (Long round_id : rounds_id) {
+                    Round round = roundRepository.findById(round_id).orElseThrow();
+                    round.setId(round_id);
+                    rounds.add(round);
+                }
+                match.getRounds().clear();
+                match.setRounds(rounds);
             }
             return matchRepository.save(match);
         }).orElseThrow(() -> new RuntimeException("Match not found :" + id));
     }
-
 
     @Transactional
     public void deleteById(long id) {
