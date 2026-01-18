@@ -200,3 +200,6 @@ INSERT INTO match_round (match_id, round_id) VALUES (9, 9);
 INSERT INTO match_round (match_id, round_id) VALUES (10, 10);
 INSERT INTO match_round (match_id, round_id) VALUES (11, 11);
 INSERT INTO match_round (match_id, round_id) VALUES (12, 12);
+
+INSERT INTO resultat (id, match_id) VALUES (1, 1);
+INSERT INTO resultat (id, match_id) VALUES (2, 2);
