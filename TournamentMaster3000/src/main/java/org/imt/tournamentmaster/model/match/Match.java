@@ -1,6 +1,5 @@
 package org.imt.tournamentmaster.model.match;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.imt.tournamentmaster.model.equipe.Equipe;
 
@@ -21,7 +20,7 @@ public class Match {
     @ManyToOne
     private Equipe equipeB;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "match_round",
             joinColumns = @JoinColumn(name = "match_id"),

@@ -3,6 +3,7 @@ package org.imt.tournamentmaster.configuration.security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,19 +15,21 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfiguration {
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) {
         http
-                .csrf(csrf -> csrf.disable())
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/api/**"))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.GET, "/api/**").permitAll() // LIBRE
-                        .requestMatchers("/api/**").hasRole("ADMIN")           // PROTEGÉ
-                        .anyRequest().authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/api/**").hasRole("ADMIN")
+                        .requestMatchers("/actuator/health/**").permitAll()
+                        .requestMatchers("/actuator/**").hasRole("ADMIN")
+                        .anyRequest().permitAll()
                 )
-                .httpBasic(httpBasic -> {})
                 .formLogin(form -> form
                         .loginPage("/login")
                         .permitAll()
-                );
+                )
+                .httpBasic(Customizer.withDefaults());
 
         return http.build();
     }
